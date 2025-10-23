@@ -22,13 +22,40 @@ class TodoController extends Controller
         $image = null;
         if(isset($request->picture)){
             $image = time().'_'.$request->picture->getClientOriginalName().'.'.$request->picture->extension();
-            $request->picture->move(public_path(path: 'images'), $image);
+            $request->picture->move(public_path(path: 'pictures'), $image);
         };
         Todo:: create(Attributes: [
             'name' => $request->name,
             'price' => $request->price,
             'picture' => $image
         ]);
+        return redirect(to: '/');
+    }
+
+    public function updateStatus($id): RedirectResponse
+    {
+        $todo = Todo::findOrFail(id: $id);
+        $todo->update(['complte' => !$todo->complete]);
+        return redirect(to: '/');
+    }
+
+    public function edit(Request $request, $id):RedirectResponse
+    {
+        $todo = Todo::findOrFail(id: $id);
+        $image = $todo->picture;
+        if(isset($request->picture)){
+            if($todo->picture){
+                unlink(filename :'picture/'.$image);
+            }
+            $image = time().'_'.$request->picture->getClientOriginalName().'.'.$request->picture->extension();
+            $request->picture->move(public_path(path: 'images'), $image);
+        };
+        $todo->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'picture' => $image
+        ]);
+        $todo->save();
         return redirect(to: '/');
     }
 }
