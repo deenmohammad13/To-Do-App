@@ -47,9 +47,14 @@
                 </form>
                 
             </td>
-            <td class="px-6 py-4">
-                <a href="#" class="font-medium px-4 py-2 rounded me-3 bg-blue-900 text-white">Edit</a>
-                <a href="#" class="font-medium px-4 py-2 rounded bg-red-900 text-white">Delete</a>
+            <td class="px-6 py-4 flex justify-center gap-2 items-center" >
+                <a href="#" class="font-medium px-4 py-2 rounded bg-blue-900 text-white">Edit</a>
+                <form action="/todos/delete/{{$todo->id}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="font-medium px-4 py-2 rounded bg-red-900 text-white">Delete</button>
+                </form>
+        
             </td>
         </tr>
         

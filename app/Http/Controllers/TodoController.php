@@ -69,7 +69,7 @@ class TodoController extends Controller
     {
         $todo = Todo::findOrFail(id: $id);
         if($todo->picture){
-            unlink(filename :'picture/'.$todo->picture);
+            unlink(filename :'pictures/'.$todo->picture);
         }
         $todo->delete();
         return redirect(to: '/');

@@ -8,5 +8,5 @@ Route::post('/todos', action:[TodoController::class, 'postTodo']);
 Route::patch('/todos/status/{id}', action:[TodoController::class, 'updateStatus']);
 Route::get('/todos/update/{id}', action:[TodoController::class, 'edit']);
 Route::patch('/todos/update/{id}', action:[TodoController::class, 'updateTodo']);
-Route::patch('/todos/delete/{id}', action:[TodoController::class, 'deleteTodo']);
+Route::delete('/todos/delete/{id}', action:[TodoController::class, 'deleteTodo']);
 
