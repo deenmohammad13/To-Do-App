@@ -39,7 +39,7 @@ class TodoController extends Controller
         return redirect(to: '/');
     }
 
-    public function edit(Request $request, $id):RedirectResponse
+    public function updateTodo(Request $request, $id):RedirectResponse
     {
         $todo = Todo::findOrFail(id: $id);
         $image = $todo->picture;
@@ -56,6 +56,22 @@ class TodoController extends Controller
             'picture' => $image
         ]);
         $todo->save();
+        return redirect(to: '/');
+    }
+
+    public function edit($id)
+    {
+        $todo = Todo::findOrFail(id: $id);
+        return view(view: 'update', data: compact(var_name: 'todo'));
+    }
+
+    public function deleteTodo($id): RedirectResponse
+    {
+        $todo = Todo::findOrFail(id: $id);
+        if($todo->picture){
+            unlink(filename :'picture/'.$todo->picture);
+        }
+        $todo->delete();
         return redirect(to: '/');
     }
 }
