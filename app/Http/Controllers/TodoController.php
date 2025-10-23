@@ -24,7 +24,7 @@ class TodoController extends Controller
             $image = time().'_'.$request->picture->getClientOriginalName().'.'.$request->picture->extension();
             $request->picture->move(public_path(path: 'pictures'), $image);
         };
-        Todo:: create(Attributes: [
+        Todo:: create([
             'name' => $request->name,
             'price' => $request->price,
             'picture' => $image
@@ -35,7 +35,7 @@ class TodoController extends Controller
     public function updateStatus($id): RedirectResponse
     {
         $todo = Todo::findOrFail(id: $id);
-        $todo->update(['complte' => !$todo->complete]);
+        $todo->update(['complete' => !$todo->complete]);
         return redirect(to: '/');
     }
 
